@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Bank Change Password</title>
+    <style>
+        /* Apply gradient background inspired by the Discover Bank logo */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: linear-gradient(45deg, #f57c00, #ffffff); /* Orange to white gradient */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            padding: 30px;
+            width: 350px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        img {
+            width: 150px; /* Set logo size */
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #f57c00;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #e65100;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none; /* Initially hidden */
+        }
+
+        .success-container {
+            display: none; /* Initially hidden */
+            text-align: center;
+        }
+
+        .back-button {
+            background-color: #f57c00;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #e65100;
+        }
+
+        /* Loading Spinner Styles */
+        .loading-spinner {
+            display: none;
+            border: 4px solid #f3f3f3; /* Light grey */
+            border-top: 4px solid #f57c00; /* Orange color */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Change Password Form -->
+    <div class="login-container" id="change-password-form">
+        <!-- Discover logo -->
+        <img src="discover-logo.svg" alt="Discover Bank Logo">
+        <h2>Change Password</h2>
+        <form id="password-change-form" onsubmit="return validatePasswords()">
+            <input type="password" id="old-password" name="old-password" placeholder="Old Password" required><br>
+            <input type="password" id="new-password" name="new-password" placeholder="New Password" required><br>
+            <input type="password" id="confirm-new-password" name="confirm-new-password" placeholder="Confirm New Password" required><br>
+            <input type="submit" value="Change Password">
+        </form>
+        <div id="error-message" class="error-message">Passwords do not match.</div>
+
+        <!-- Loading Spinner -->
+        <div id="loading-spinner" class="loading-spinner"></div>
+    </div>
+
+    <!-- Success Message Page -->
+    <div class="success-container" id="success-message">
+        <h2>Password Changed Successfully!</h2>
+        <p>Your password has been updated successfully. You can now use your new password to log in.</p>
+        <!-- Button to return to the login page -->
+        <a href="https://www.discover.com/?ICMPGN=PUB_HDR_HOME" class="back-button" target="_blank">Return to Login Page</a>
+    </div>
+
+    <script>
+        function validatePasswords() {
+            // Show loading spinner
+            document.getElementById("loading-spinner").style.display = "block";
+            
+            // Get the values of the new password fields
+            var newPassword = document.getElementById("new-password").value;
+            var confirmPassword = document.getElementById("confirm-new-password").value;
+
+            // Check if the passwords match
+            if (newPassword !== confirmPassword) {
+                // Hide loading spinner and show error message
+                document.getElementById("loading-spinner").style.display = "none";
+                document.getElementById("error-message").style.display = "block";
+                return false; // Prevent form submission
+            }
+
+            // Simulate processing (loading), and show success message after delay
+            setTimeout(function() {
+                document.getElementById("error-message").style.display = "none";
+                document.getElementById("change-password-form").style.display = "none";
+                document.getElementById("success-message").style.display = "block";
+            }, 2000); // Delay for 2 seconds (to simulate loading time)
+
+            return false; // Prevent default form submission (page reload)
+        }
+    </script>
+
+</body>
+</html>
